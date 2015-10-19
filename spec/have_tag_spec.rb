@@ -603,4 +603,19 @@ describe 'have_tag' do
     end
   end
 
+  context "Extra un-nested named arguments" do
+    asset 'quotes'
+
+    it "should raise an argument error when extra named arguments are not of the whitelist" do
+      expect {
+        expect(rendered).to have_tag('div', :text => 'sample text', :foo => 'foo')
+      }.to raise_error(ArgumentError, "Unknown key(s): foo")
+    end
+
+    it "should not raise an argument error when there are no extra named arguments" do
+      expect {
+        expect(rendered).to have_tag('div', :text => 'sample text', :count => 1)
+      }.to_not raise_error
+    end
+  end
 end

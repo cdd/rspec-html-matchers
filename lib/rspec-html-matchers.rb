@@ -70,6 +70,7 @@ module RSpec
 
       def initialize tag, options={}, &block
         @tag, @options, @block = tag.to_s, options, block
+        assert_valid_options_keys
 
         if with_attrs = @options.delete(:with)
           if classes = with_attrs.delete(:class)
@@ -225,6 +226,12 @@ module RSpec
         @options[:maximum] ||= @options.delete(:max)
 
         @options[:text] = @options[:text].to_s if @options.has_key?(:text) && !@options[:text].is_a?(Regexp)
+      end
+
+      VALID_OPTIONS_KEYS = [:with, :without, :text, :count, :minimum, :min, :maximum, :max].freeze
+      def assert_valid_options_keys
+        unknown_keys = @options.keys - VALID_OPTIONS_KEYS
+          raise(ArgumentError, "Unknown key(s): #{unknown_keys.join(", ")}") unless unknown_keys.empty?
       end
 
     end
