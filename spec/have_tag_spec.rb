@@ -609,7 +609,7 @@ describe 'have_tag' do
     it "should raise an argument error when extra named arguments are not of the whitelist" do
       expect {
         expect(rendered).to have_tag('div', :text => 'sample text', :foo => 'foo')
-      }.to raise_error(ArgumentError, "Unknown key(s): foo")
+      }.to raise_error(ArgumentError, "Unknown key(s): foo. Extra options should be passed in via :with and :without keys.")
     end
 
     it "should not raise an argument error when there are no extra named arguments" do

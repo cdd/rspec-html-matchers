@@ -231,7 +231,7 @@ module RSpec
       VALID_OPTIONS_KEYS = [:with, :without, :text, :count, :minimum, :min, :maximum, :max].freeze
       def assert_valid_options_keys
         unknown_keys = @options.keys - VALID_OPTIONS_KEYS
-          raise(ArgumentError, "Unknown key(s): #{unknown_keys.join(", ")}") unless unknown_keys.empty?
+          raise(ArgumentError, "Unknown key(s): #{unknown_keys.join(", ")}. Extra options should be passed in via :with and :without keys.") unless unknown_keys.empty?
       end
 
     end
